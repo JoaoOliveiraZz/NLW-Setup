@@ -1,6 +1,7 @@
 interface HabitProps {
-    amount: number
-    completed: number
+    date: Date
+    amount?: number
+    completed?: number
 }
 
 import * as Popover from "@radix-ui/react-popover";
@@ -8,10 +9,14 @@ import { ProgressBar } from "./progressBar";
 import clsx from 'clsx'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { Check } from "phosphor-react";
+import dayjs from "dayjs";
 
-export function Habit(props: HabitProps) {
+export function Habit({completed = 0, amount = 0, date} : HabitProps) {
 
-    const completedPorcentage = Math.round((props.completed / props.amount) * 100)
+    const completedPorcentage = amount > 0 ? Math.round((completed / amount) * 100) : 0;
+
+    const dayAndMonth = dayjs(date).format('DD/MM');
+    const dayOfWeek = dayjs(date).format('dddd') 
 
     return (
         <Popover.Root>
@@ -22,8 +27,8 @@ export function Habit(props: HabitProps) {
                         'bg-violet-600 border-violet-500': completedPorcentage >= 60 && completedPorcentage < 80,
                         'bg-violet-700 border-violet-500': completedPorcentage >= 40 && completedPorcentage < 60,
                         'bg-violet-800 border-violet-600': completedPorcentage >= 20 && completedPorcentage < 40,
-                        'bg-violet-900 border-violet-700': completedPorcentage >= 0 && completedPorcentage < 20,
-                        'bg-zinc-900 border-violet-800': completedPorcentage == 0
+                        'bg-violet-900 border-violet-700': completedPorcentage > 0 && completedPorcentage < 20,
+                        'bg-zinc-900 border-zinc-800': completedPorcentage == 0
                     })
                 }
 
@@ -32,8 +37,8 @@ export function Habit(props: HabitProps) {
 
             <Popover.Portal>
                 <Popover.Content className="min-w-[320px] p-6 rounded-2xl bg-zinc-900 flex flex-col">
-                    <span className="font-semibold text-zinc-400 ">Segunda-feira</span>
-                    <span className="mt-1 font-extrabold leadin-tight text-xl">20/01</span>
+                    <span className="font-semibold text-zinc-400 ">{dayOfWeek}</span>
+                    <span className="mt-1 font-extrabold leadin-tight text-xl">{dayAndMonth}</span>
 
                     <ProgressBar progress={completedPorcentage} />
 

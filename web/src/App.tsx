@@ -1,7 +1,8 @@
 import { useState } from 'react'
 // import { Habit } from './components/Habit'
 import './styles/global.css'
-import { Header } from './components/header'
+import './lib/dayjs'
+import { Header } from './components/Header'
 import { SummaryTable } from './components/SummaryTable'
 
 
