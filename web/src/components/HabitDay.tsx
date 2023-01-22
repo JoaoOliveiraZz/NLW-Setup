@@ -27,7 +27,7 @@ export function Habit({ defaultCompleted = 0, amount = 0, date }: HabitProps) {
     return (
         <Popover.Root>
             <Popover.Trigger
-                className={clsx('w-10 h-10 bg-zinc-900 border-2 border-zinc-800 rounded-lg',
+                className={clsx('w-10 h-10 bg-zinc-900 border-2 border-zinc-800 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-violet-800 focus:ring-offset-2 focus:ring-offset-background',
                     {
                         'bg-violet-500 border-violet-400': completedPorcentage >= 80,
                         'bg-violet-600 border-violet-500': completedPorcentage >= 60 && completedPorcentage < 80,
